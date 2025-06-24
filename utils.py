@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field
 from sentence_transformers.cross_encoder import CrossEncoder
 from langchain.retrievers.document_compressors import LLMChainExtractor
 from langchain.retrievers import ContextualCompressionRetriever
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 # Load environment variables
 load_dotenv()
@@ -109,10 +110,7 @@ class RAGOrchestrator:
         """
         self.config = config
         self.debug = config.get("debug", False)
-        self.llm = ChatOpenAI(
-            model=config.get("llm_model", "gpt-4o-mini"),
-            api_key=OPENAI_API_KEY
-        )
+        self.llm = ChatGoogleGenerativeAI(model="gemma-3n-e4b-it", google_api_key=os.getenv("GOOGLE_API_KEY"))
         if config.get("retrieval_strategy") != "llm_only":
             self.retriever = PineconeDBRetriever(
                 index_name=config.get("index_name"),
@@ -493,7 +491,7 @@ def initialize_agent(OPENAI_API_KEY, PINECONE_API_KEY, retrieval_strategy="simpl
     	    "retrieval_strategy": retrieval_strategy,
     	    "post_retrieval_processing": post_retrieval_processing,
     	    "prompt_strategy": prompt_strategy,
-    	    "index_name": "swru526-index",
+    	    "index_name": "llamav2",
     	    "namespace": "example-namespace",
     	    "top_k": 10,
     	    "reranker_top_n": 5,  # This is for the re-ranker, if used
