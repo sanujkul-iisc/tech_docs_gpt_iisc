@@ -21,7 +21,7 @@ with st.sidebar:
     """)
 
     st.header("Question Bank 📚")
-    st.markdown("[Question Bank for reference questions](https://www.google.com)")
+    st.markdown("[Question Bank for reference questions](https://docs.google.com/spreadsheets/d/115e3Nj3iBm6hbz0EnqxV8zB8BJ3AMmTr/edit?usp=sharing&ouid=106241492141217073007&rtpof=true&sd=true)")
 
 
     st.header("🛠️ Features")
